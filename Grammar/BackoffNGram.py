@@ -1,7 +1,8 @@
 from collections import deque
-from . import NGramBuilder
 from random import choices
 from math import isclose, log, exp
+
+from .UniGram import UniGram
 
 class BackoffNGram:
     '''
@@ -15,7 +16,7 @@ class BackoffNGram:
 
         self.n = size
         self.grammar = {}
-        self.unigram = NGramBuilder.build(1)
+        self.unigram = UniGram()
         self.weights = weights
 
     def add_sequence(self, sequence):
@@ -48,6 +49,19 @@ class BackoffNGram:
             if input_sequence in self.grammar:
                 unigram = self.grammar[input_sequence]
                 return choices(list(unigram.keys()), weights=unigram.values())[0]
+
+            split_sequence.pop(0)
+
+        return self.unigram.get_output()
+
+    def get_unweighted_output(self, sequence):
+        split_sequence = sequence.split(',')
+
+        while len(split_sequence) >= 1:
+            input_sequence = ','.join(split_sequence)
+            if input_sequence in self.grammar:
+                unigram = self.grammar[input_sequence]
+                return list(unigram.keys())
 
             split_sequence.pop(0)
 

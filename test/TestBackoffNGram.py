@@ -1,24 +1,24 @@
 from math import isclose
 
 import unittest
-import NGram
+from Grammar import BackoffNGram
 
 class TestBackoffNGram(unittest.TestCase):
     def test_n_gram_size(self):
-        self.assertEqual(1, NGram.build_backoff(1, [1]).n)
-        self.assertEqual(2, NGram.build_backoff(2, [1, 0]).n)
-        self.assertEqual(3, NGram.build_backoff(3, [1, 0, 0]).n)
-        self.assertEqual(4, NGram.build_backoff(4, [1, 0, 0, 0]).n)
-        self.assertEqual(5, NGram.build_backoff(5, [1, 0, 0, 0, 0]).n)
+        self.assertEqual(1, BackoffNGram(1, [1]). n)
+        self.assertEqual(2, BackoffNGram(2, [1, 0]). n)
+        self.assertEqual(3, BackoffNGram(3, [1, 0, 0]). n)
+        self.assertEqual(4, BackoffNGram(4, [1, 0, 0, 0]). n)
+        self.assertEqual(5, BackoffNGram(5, [1, 0, 0, 0, 0]). n)
 
         with self.assertRaises(AssertionError):
-            NGram.build_backoff(3, [1, 0, 0, 0, 0])
+            BackoffNGram(3, [1, 0, 0, 0, 0])
 
         with self.assertRaises(AssertionError):
-            NGram.build_backoff(3, [1, 2, 0])
+            BackoffNGram(3, [1, 2, 0])
 
     def test_n_gram_add_sequence(self):
-        gram = NGram.build_backoff(4, [0.8, 0.1, 0.05, 0.05])
+        gram = BackoffNGram(4, [0.8, 0.1, 0.05, 0.05])
         gram.add_sequence("abcd")
         self.assertEqual(6, len(gram.grammar))
         self.assertEqual(4, len(gram.unigram.counts))
@@ -57,7 +57,7 @@ class TestBackoffNGram(unittest.TestCase):
         self.assertEqual(1, gram.unigram.counts["d"])
 
     def test_has_next_step(self):
-        gram = NGram.build_backoff(2, [0.6, 0.4])
+        gram = BackoffNGram(2, [0.6, 0.4])
         self.assertFalse(gram.has_next_step("a"))
 
         gram.add_sequence("ab")
@@ -67,7 +67,7 @@ class TestBackoffNGram(unittest.TestCase):
         self.assertTrue(gram.has_next_step("ab"))
 
     def test_get_output(self):
-        gram = NGram.build_backoff(3, [0.1, 0.2, 0.7])
+        gram = BackoffNGram(3, [0.1, 0.2, 0.7])
         gram.add_sequence("aab") # aa -> b, a -> a, a -> b, a, a, b
         gram.add_sequence("aab") # aa -> b, a -> a, a -> b, a, a, b
         gram.add_sequence("aab") # aa -> b, a -> a, a -> b, a, a, b
@@ -95,7 +95,7 @@ class TestBackoffNGram(unittest.TestCase):
         self.assertTrue(counts['c'] > 0)
 
     def test_get_probability(self):
-        gram = NGram.build_backoff(4, [0.05, 0.05, 0.2, 0.7])
+        gram = BackoffNGram(4, [0.05, 0.05, 0.2, 0.7])
         self.assertEqual(0, gram.get_probability(['a', 'a'], 'b'))
         self.assertEqual(0, gram.get_probability(['a'], 'b'))
         self.assertEqual(0, gram.get_probability(['a'], 'b'))
@@ -122,7 +122,7 @@ class TestBackoffNGram(unittest.TestCase):
         self.assertEqual(0.05 * 0.75, gram.get_probability(['c', 'd', 'z'], 'a'))
 
     def test_sequence_probability(self):
-        gram = NGram.build_backoff(4, [0.05, 0.05, 0.2, 0.7])
+        gram = BackoffNGram(4, [0.05, 0.05, 0.2, 0.7])
         self.assertEqual(0, gram.sequence_probability('a,a,b'))
 
         gram.add_sequence('aaab')

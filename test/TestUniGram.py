@@ -1,9 +1,9 @@
 import unittest
-import NGram
+from Grammar import UniGram
 
 class TestUniGram(unittest.TestCase):
     def test_unigram_add_sequence(self):
-        unigram = NGram.build(1)
+        unigram = UniGram()
         unigram.add_sequence("abcdef")
 
         for token in unigram.counts:
@@ -16,7 +16,7 @@ class TestUniGram(unittest.TestCase):
         unigram.add_sequence("g")
         self.assertEqual(unigram.counts["g"], 1)
 
-        unigram = NGram.build(1)
+        unigram = UniGram()
 
         unigram.add_sequence("ab")
         counts = { "a": 1, "b": 1}
@@ -32,7 +32,7 @@ class TestUniGram(unittest.TestCase):
             self.assertEqual(counts[key], unigram.counts[key])
 
     def test_get_probability(self):
-        unigram = NGram.build(1)
+        unigram = UniGram()
 
         unigram.add_sequence("ab")
         self.assertEqual(0.5, unigram.get_probability("a"))
@@ -46,14 +46,14 @@ class TestUniGram(unittest.TestCase):
         self.assertEqual(0.0, unigram.get_probability("d"))
 
     def test_has_next_step(self):
-        unigram = NGram.build(1)
+        unigram = UniGram()
         self.assertFalse(unigram.has_next_step())
 
         unigram.add_sequence("aa")
         self.assertTrue(unigram.has_next_step())
 
     def test_get_output(self):
-        unigram = NGram.build(1)
+        unigram = UniGram()
         unigram.add_sequence("aaababcd")
 
         a_found = 0
@@ -81,7 +81,7 @@ class TestUniGram(unittest.TestCase):
         self.assertTrue(a_found > d_found)  
 
     def test_get_weighted_output(self):
-        unigram = NGram.build(1)
+        unigram = UniGram()
         unigram.add_sequence("aaababcd")
 
         output = unigram.get_weighted_output()

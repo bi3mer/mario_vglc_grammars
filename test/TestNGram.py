@@ -1,14 +1,14 @@
 import unittest
 
-import NGram
+from  Grammar import NGram
 
 class TestNGram(unittest.TestCase):
     def test_n_gram_size(self):
         for i in range(2, 20):
-            self.assertEqual(i, NGram.build(i).n)
+            self.assertEqual(i, NGram(i).n)
 
     def test_n_gram_add_sequence(self):
-        ngram = NGram.build(3)
+        ngram = NGram(3)
         ngram.add_sequence("abcd")
 
         self.assertTrue("a,b" in ngram.grammar)
@@ -35,7 +35,7 @@ class TestNGram(unittest.TestCase):
         self.assertEqual(1, ngram.grammar["a,c"]["d"])
 
     def test_has_next_step(self):
-        gram = NGram.build(2)
+        gram = NGram(2)
         self.assertFalse(gram.has_next_step("a"))
 
         gram.add_sequence("ab")
@@ -45,7 +45,7 @@ class TestNGram(unittest.TestCase):
         self.assertFalse(gram.has_next_step("a,b"))
 
     def test_get_output(self):
-        gram = NGram.build(3)
+        gram = NGram(3)
         gram.add_sequence("aab") # aa -> b
         gram.add_sequence("aab") # aa -> b
         gram.add_sequence("aab") # aa -> b
@@ -86,7 +86,7 @@ class TestNGram(unittest.TestCase):
         self.assertTrue(b_found > 0)
 
     def test_get_weighted_output(self):
-        gram = NGram.build(4)
+        gram = NGram(4)
         gram.add_sequence("aaac") # aaa -> c
         gram.add_sequence("aaac") # aaa -> c
         gram.add_sequence("aaac") # aaa -> c
