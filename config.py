@@ -1,0 +1,17 @@
+# view smb.json in TheVGLC
+SOLIDS = set()
+SOLIDS.add('X')
+SOLIDS.add('S')
+SOLIDS.add('?')
+SOLIDS.add('Q')
+SOLIDS.add('<')
+SOLIDS.add('>')
+SOLIDS.add('[')
+SOLIDS.add(']')
+SOLIDS.add('B')
+SOLIDS.add('b')
+
+ENEMIES = set()
+ENEMIES.add('E')
+ENEMIES.add('B')
+ENEMIES.add('b')
