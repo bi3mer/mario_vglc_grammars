@@ -58,7 +58,7 @@ from Generation.Unconstrained import generate
 from Utility import columns_into_rows
 from Grammar import NGram
 
-level = get_single_super_mario_bros('mario-1-1.txt')
+level = get_single_super_mario_bros('mario-1-1.txt', include_current_dir=False)
 gram = NGram(3)
 gram.add_sequence(level)
 
@@ -94,7 +94,7 @@ from Generation.Constrained import generate_from_start_to_end
 from Utility import columns_into_rows
 from Grammar import BackoffNGram
 
-levels = get_super_mario_bros()
+levels = get_super_mario_bros(include_current_dir=False)
 gram = BackoffNGram(4, [1,0,0,0])
 for lvl in levels:
     gram.add_sequence(lvl)

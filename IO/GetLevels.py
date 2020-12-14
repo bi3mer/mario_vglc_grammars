@@ -11,8 +11,12 @@ def rows_into_columns(rows):
 
     return columns
 
-def get_super_mario_bros():
-    path = os.path.join("TheVGLC", "Super Mario Bros", "Processed")
+def get_super_mario_bros(include_current_dir=True):
+    if include_current_dir:
+        path = os.path.join("mario_vglc_grammars", "TheVGLC", "Super Mario Bros", "Processed")
+    else:
+        path = os.path.join("TheVGLC", "Super Mario Bros", "Processed")
+
     skip_levels = ['mario-1-1.txt', 'mario-1-2.txt', 'mario-2-1.txt' 'mario-4-2.txt',
                    'mario-4-3.txt', 'mario-5-3.txt', 'mario-6-3.txt']
     levels = []
@@ -27,8 +31,12 @@ def get_super_mario_bros():
 
     return levels
 
-def get_single_super_mario_bros(level_name):
-    path = os.path.join("TheVGLC", "Super Mario Bros", "Processed")
+def get_single_super_mario_bros(level_name, include_current_dir=True):
+    if include_current_dir:
+        path = os.path.join("mario_vglc_grammars", "TheVGLC", "Super Mario Bros", "Processed")
+    else:
+        path = os.path.join("TheVGLC", "Super Mario Bros", "Processed")
+
     f = open(os.path.join(path, level_name))
     lvl = rows_into_columns(f.readlines())
     f.close()

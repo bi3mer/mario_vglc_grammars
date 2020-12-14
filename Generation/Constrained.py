@@ -47,5 +47,5 @@ def generate_from_start_to_end(grammar, start, end, min_length):
     while current != start_prior:
         path.insert(0, current.split(',')[-1])
         current = ','.join(came_from[current])
-        
-    return (min_path + path + end[grammar.n - 1:])
+
+    return start + min_path + path + end

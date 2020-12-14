@@ -1,4 +1,4 @@
-import config
+from .. import config
 
 def heights(column):
     heights = []
