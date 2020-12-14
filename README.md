@@ -1,4 +1,4 @@
-# mario_vglc_grammars
+# Mario VGLC + Grammars
 
 ## Getting Started
 
