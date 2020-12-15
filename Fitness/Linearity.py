@@ -51,7 +51,7 @@ def linearity_with_heights(heights):
     return score
 
 def linearity(level):
-    return linearity_with_heights([Extractor.max_height(col) for col in level])
+    return linearity_with_heights([Extractor.min_height(col) for col in level])
     
 def max_linearity(level_size, level_height):
     expected = level_height / 2

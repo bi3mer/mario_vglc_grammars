@@ -12,6 +12,16 @@ class TestExtractor(unittest.TestCase):
         self.assertEqual(11, Extractor.max_height('-----------X-'))
         self.assertEqual(11, Extractor.max_height('X----------X-'))
 
+    def test_min_height(self):
+        self.assertEqual(-1, Extractor.min_height('-------------'))
+        self.assertEqual(0, Extractor.min_height('X-------------'))
+        self.assertEqual(1, Extractor.min_height('bS------------'))
+        self.assertEqual(1, Extractor.min_height('bb-Q----------'))
+        self.assertEqual(3, Extractor.min_height('--bbE------E--'))
+        self.assertEqual(-1, Extractor.min_height('------E------'))
+        self.assertEqual(11, Extractor.min_height('-----------X-'))
+        self.assertEqual(0, Extractor.min_height('X----------X-'))
+
     def test_contains_enemy(self):
         self.assertFalse(Extractor.contains_enemy('--------------'))
         self.assertFalse(Extractor.contains_enemy('X-------------'))

@@ -31,6 +31,22 @@ def max_height(column):
     
     return height if found else -1
 
+def min_height(column):
+    '''
+    -1 means that there is no solid found.
+    '''
+    found = False
+    height = 0
+    while height <= len(column) - 1:
+        if column[height] in config.SOLIDS:
+            found = True
+        elif found:
+            break
+
+        height += 1
+    
+    return height - 1 if found else -1
+
 def contains_enemy(column):
     found_enemy = False
     for token in column:

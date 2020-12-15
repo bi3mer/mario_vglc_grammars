@@ -5,7 +5,7 @@ from IO.GetLevels import get_super_mario_bros
 
 class TestNGram(unittest.TestCase):
     def test_contrived_playability(self):
-        levels = get_super_mario_bros()
+        levels = get_super_mario_bros(include_current_dir=False)
         for columns in levels:
             self.assertTrue(playability(columns) < 20)
 
@@ -25,7 +25,7 @@ class TestNGram(unittest.TestCase):
         self.assertEqual(0, playability(columns))
 
     def test_level_playability_with_levels(self):
-        for lvl in get_super_mario_bros():
+        for lvl in get_super_mario_bros(include_current_dir=False):
             self.assertEqual(1.0, percent_playable(lvl))
 
     def test_fail_level_playability(self):
