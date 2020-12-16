@@ -1,7 +1,7 @@
 from collections import deque
 from .Unconstrained import generate
 
-def generate_from_start_to_end(grammar, start, end, min_length):
+def generate_from_start_to_end(grammar, start, end, min_length, include_path_length=False):
     # generate path of minimum length with an n-ram
     min_path = start + generate(grammar, start, min_length)
 
@@ -48,4 +48,8 @@ def generate_from_start_to_end(grammar, start, end, min_length):
         path.insert(0, current.split(',')[-1])
         current = ','.join(came_from[current])
     
-    return min_path + path + end[grammar.n - 1:]
+    full_map = min_path + path + end[grammar.n - 1:]
+    if include_path_length:
+        return full_map, min_length + len(path)
+    
+    return full_map
