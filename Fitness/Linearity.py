@@ -17,9 +17,12 @@ def get_slope_and_intercept(x, y):
         sum_y += y_val
 
     # y = mx + b
+    denominator  =  ((n * sum_x_squared) - pow(sum_x, 2))
+    if denominator == 0:
+        return 0, 0
+
     m = ((n * sum_xy) - (sum_x * sum_y)) / ((n * sum_x_squared) - pow(sum_x, 2))
     b = (sum_y - (m * sum_x)) / n
-
     return m, b
 
 def linearity_with_heights(heights):
