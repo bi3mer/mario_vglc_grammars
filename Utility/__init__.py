@@ -10,7 +10,7 @@ def weighted_shuffle(items, weights):
 
 def columns_into_rows(columns):
     '''
-    convert the column matrix into a string that can be easily viewed. 
+    convert the column matrix into a row matrix
     '''
     column_length = len(columns[0])
     rows = ["" for _ in range(column_length)]
@@ -25,7 +25,13 @@ def columns_into_rows(columns):
             i -= 1
             j += 1
 
-    return '\n'.join(rows)
+    return rows
+
+def columns_into_level_string(columns):
+    '''
+    convert the column matrix into a string that can be easily viewed. 
+    '''
+    return '\n'.join(columns_into_rows(columns))
 
 def update_progress(progress):
     '''

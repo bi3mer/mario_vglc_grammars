@@ -27,45 +27,6 @@ class TestNGram(unittest.TestCase):
     def test_level_playability_with_levels(self):
         for lvl in get_super_mario_bros(include_current_dir=False):
             self.assertEqual(1.0, percent_playable(lvl))
-
-    def test_fail_level_playability(self):
-        columns = []
-        columns.append('X------------')
-        columns.append('X[[[---------')
-        columns.append('X------------')
-        columns.append('-------------')
-        self.assertEqual(1.0, percent_playable(columns))
-
-        columns = []
-        columns.append('X------------')
-        columns.append('X[[[---------')
-        columns.append('X------------')
-        columns.append('-------------')
-        columns.append('-------------')
-        columns.append('-------------')
-        columns.append('-------------')
-        columns.append('-------------')
-        columns.append('-------------')
-        columns.append('-------------')
-        columns.append('X------------')
-
-        self.assertEqual(9 / len(columns), percent_playable(columns))
-
-        columns = []
-        columns.append('X------------')
-        columns.append('X[[[---------')
-        columns.append('X------------')
-        columns.append('X------------')
-        columns.append('-------------')
-        columns.append('-------------')
-        columns.append('-------X-----')
-        columns.append('-------X-----')
-        columns.append('-------X-----')
-        columns.append('-------X-----')
-        columns.append('-------------')
-        columns.append('X------------')
-
-        self.assertEqual(10 / len(columns), percent_playable(columns))
         
     def test_expected_playability(self):
         heights = [0,0,0,0]

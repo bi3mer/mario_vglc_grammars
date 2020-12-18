@@ -1,4 +1,6 @@
-from . import Extractor
+from Utility import columns_into_rows
+from .Extractor import min_height, max_height, heights as eHeights
+from .ModifiedAStar import percent_completable
 
 def playability(columns):
     '''
@@ -13,7 +15,7 @@ def playability(columns):
     column_iter = iter(columns)
     col = next(column_iter)
 
-    current_height = Extractor.max_height(col)
+    current_height = max_height(col)
     gaps_seen = 0 if current_height != -1 else 1
     pipe_starts = []
     for i in range(len(col)):
@@ -22,7 +24,7 @@ def playability(columns):
 
     for col in columns:
         # handle height
-        heights = Extractor.heights(col)
+        heights = eHeights(col)
 
         if len(heights) == 0:
             gaps_seen += 1
@@ -71,36 +73,17 @@ def expected_playability(linearity_list):
     return unplayability
 
 def percent_playable(columns):
-    column_iter = iter(columns)
-    col = next(column_iter)
+    w = 0
+    h = 0
+    start_found = False
 
-    current_height = Extractor.max_height(col)
-    gaps_seen = 0 if current_height != -1 else 1
+    while not start_found:
+        h = min_height(columns[w])
 
-    for i, col in enumerate(columns):
-        heights = Extractor.heights_with_enemies(col)
-
-        if len(heights) == 0:
-            gaps_seen += 1
-
-            if gaps_seen > 6:
-                break
+        if h != -1:
+            h = len(columns[0]) - 2 - h
+            start_found = True
         else:
-            valid_height = -1
-            for h in heights:
-                if not (h > current_height + 4):
-                    valid_height = h
-                    break
-
-            if valid_height == -1:
-                current_height = valid_height
-                gaps_seen += 1
-            else:
-                current_height = heights[0]
-                gaps_seen = 0
-
-    if i == len(columns) - 1:
-        return 1.0 # remove rounding error for unit tests
-
-    return i / len(columns)
-
+            w += 1
+    
+    return percent_completable(10, (w, h, -1), columns_into_rows(columns))
