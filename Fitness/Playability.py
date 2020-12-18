@@ -1,4 +1,4 @@
-from Utility import columns_into_rows
+from .Utility import columns_into_rows
 from .Extractor import min_height, max_height, heights as eHeights
 from .ModifiedAStar import percent_completable
 
