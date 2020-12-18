@@ -17,7 +17,7 @@ def get_super_mario_bros(include_current_dir=True):
     else:
         path = os.path.join("TheVGLC", "Super Mario Bros", "Processed")
 
-    skip_levels = ['mario-1-1.txt', 'mario-1-2.txt', 'mario-2-1.txt' 'mario-4-2.txt',
+    skip_levels = ['mario-1-2.txt', 'mario-2-1.txt', 'mario-3-3.txt', 'mario-4-2.txt',
                    'mario-4-3.txt', 'mario-5-3.txt', 'mario-6-3.txt']
     levels = []
 
