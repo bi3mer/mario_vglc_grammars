@@ -72,25 +72,12 @@ def expected_playability(linearity_list):
 
     return unplayability
 
-def percent_playable(columns):
+def percent_playable(columns, start_position):
     '''
     This uses an A* agent to tell if a level is playable. It should be pretty
     close to perfect.
     '''
-    w = 0
-    h = 0
-    start_found = False
-
-    while not start_found:
-        h = min_height(columns[w])
-
-        if h != -1:
-            h = len(columns[0]) - 2 - h
-            start_found = True
-        else:
-            w += 1
-    
-    return percent_completable(10, (w, h, -1), columns_into_rows(columns))
+    return percent_completable(10, start_position, columns_into_rows(columns))
 
 def naive_percent_playable(columns):
     '''
