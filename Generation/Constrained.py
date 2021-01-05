@@ -38,6 +38,8 @@ def generate_from_start_to_end(grammar, start, end, min_length, include_path_len
                 break
     
     if not path_found:
+        if include_path_length:
+            return None, -1
         return None
 
     # reconstruct path
