@@ -1,6 +1,6 @@
 import unittest
 
-from Fitness import playability, expected_playability, percent_playable
+from Fitness import playability, expected_playability, naive_percent_playable
 from IO.GetLevels import get_super_mario_bros
 
 class TestNGram(unittest.TestCase):
@@ -23,10 +23,6 @@ class TestNGram(unittest.TestCase):
         columns.append('X---X[[------')
         columns.append('X---X]]------')
         self.assertEqual(0, playability(columns))
-
-    def test_level_playability_with_levels(self):
-        for lvl in get_super_mario_bros(include_current_dir=False):
-            self.assertEqual(1.0, percent_playable(lvl))
         
     def test_expected_playability(self):
         heights = [0,0,0,0]
